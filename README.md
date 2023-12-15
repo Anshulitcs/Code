@@ -66,6 +66,10 @@ print("left value",left)
 print("right value",right)
 print("f(x1)",f1)
 print("f(x2)",f2)
+
+
+
+
 import sympy as sp
 from sympy import *
 x,y=symbols('x y')
@@ -76,4 +80,38 @@ Hessian=[[sp.diff(Gradient[0],x),sp.diff(Gradient[0],y)],
         [sp.diff(Gradient[1],x),sp.diff(Gradient[0],x)]]
 print("The Hessian of that function is:",Hessian)
 
-    
+    import numpy as np
+from scipy.optimize import minimize
+
+# Define the function
+def objective_function(x):
+    return -10 * np.cos(np.pi * x - 2.2) + (x + 1.5) * x
+
+# Initial guess for the optimizer
+initial_guess = 0.0
+
+# Use the minimize function to find the minimum of the objective function
+result = minimize(objective_function, initial_guess, method='BFGS')
+
+# Extract the optimal solution
+optimal_solution = result.x[0]
+optimal_value = result.fun
+
+print("Optimal Solution:", optimal_solution)
+print("Optimal Value:", optimal_value)
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+sns.set_theme()
+def objective_function(x):
+    return -10 * np.cos(np.pi * x - 2.2) + (x + 1.5) * x
+#Generate data for objective function graph
+X=np.arange(-10,1,0.2)
+
+#Plotting global minimum
+plt.vlines(x=optimized_x,ymin=-10,ymax=125,colors='blue')
+plt.vlines(y=optimized_fun,xmin=-10,xmax=125,colors='blue')
+plt.plot(X,y)
+plt.plot(optimized_x,optimized_fun,'o',color='red')
+plt.show()
+
