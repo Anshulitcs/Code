@@ -1,3 +1,4 @@
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -145,4 +146,38 @@ plt.legend()
 # Show the plot
 plt.show()
 
+
+
+import numpy as np
+from sympy import symbols, diff, solve, Eq
+
+x, y, l = symbols('x y l')
+f = 4 * x**2 - 2 * x * y + 6 * y**2
+g = x + y - 72
+L = f + l * g
+
+df_dx, df_dy, df_dl = diff(L, x), diff(L, y), diff(L, l)
+fxx, fxy, fyy = diff(df_dx, x), diff(df_dx, y), diff(df_dy, y)
+gxx, gyy = diff(g, x), diff(g, y)
+
+hessian = np.array([[fxx, fxy, gxx], [fxy, fyy, gyy], [gxx, gyy, 0]], dtype=float)
+
+critical_points = solve([df_dx, df_dy, df_dl, Eq(g, 0)], (x, y, l), dict=True)
+
+for point in critical_points:
+    print("Critical Point:", point)
+hessian_values = np.array([[float(h) for h in row[:-1]] for row in hessian[:-1]])
+hess_det = np.linalg.det(hessian_values)
+print("Hessian Matrix:")
+print(hessian_values)
+print("Determinant (hess_det):", hess_det)
+
+if hess_det > 0:
+    print("Optimal Solution is a minimum.")
+elif hess_det < 0:
+    print("Optimal Solution is a maximum.")
+else:
+    print("Optimal Solution cannot be determined.")
+        
+print("-----------")
 
