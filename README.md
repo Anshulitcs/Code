@@ -36,3 +36,33 @@ plt.legend()
 plt.grid(True)
 plt.show()
 # Code
+
+
+import sympy as sp
+from sympy import *
+x=symbols('x')
+f=input("enter the function to compute")
+s=sp.simplify(f)
+left=float(input("enter the left value"))
+right=float(input("enter the right value"))
+iterations=int(input("enter the number of iterations you wanted to do"))
+n=0
+y=left+0.618*(right-left)
+x=left+right-y
+while(n<=iterations):
+    f1=s.subs({'x':x}).evalf()
+    f2=s.subs({'x':y}).evalf()
+    if(float(f1)<float(f2)):
+        right=y
+        y=x
+        x=left+(right-y)
+        n=n+1
+    else:
+        left=x
+        x=y
+        y=left+0.618*(right-left)
+        n=n+1
+print("left value",left)
+print("right value",right)
+print("f(x1)",f1)
+print("f(x2)",f2)
