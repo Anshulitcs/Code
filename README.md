@@ -66,3 +66,14 @@ print("left value",left)
 print("right value",right)
 print("f(x1)",f1)
 print("f(x2)",f2)
+import sympy as sp
+from sympy import *
+x,y=symbols('x y')
+f=input("Enter the function to compute")
+Gradient=[sp.diff(f,x),sp.diff(f,y)]
+print("Gradient of the function f(x,y) is:",Gradient)
+Hessian=[[sp.diff(Gradient[0],x),sp.diff(Gradient[0],y)],
+        [sp.diff(Gradient[1],x),sp.diff(Gradient[0],x)]]
+print("The Hessian of that function is:",Hessian)
+
+    
