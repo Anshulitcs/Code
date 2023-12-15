@@ -115,3 +115,34 @@ plt.plot(X,y)
 plt.plot(optimized_x,optimized_fun,'o',color='red')
 plt.show()
 
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import differential_evolution
+
+# Define the objective function
+def objective_function(x):
+    return -10 * np.cos(np.pi * x - 2.2) + (x + 1.5) * x
+
+bounds=[(-100,100)]
+
+result=differential_evolution(objective_function,bounds)
+print(f"The global minima of function is {result.fun:.2f} at x = {result.x[0]:.2f}.")
+# Plot the function
+x_values = np.linspace(-15, 15, 1000)
+y_values = objective_function(x_values)
+plt.plot(x_values, y_values, label='f(x)')
+
+plt.scatter(result.x[0], result.fun, color='red', label='Global Minimum')
+
+# Add labels and legend
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('Graph of the Objective Function')
+plt.legend()
+
+# Show the plot
+plt.show()
+
+
